@@ -1,6 +1,7 @@
 package com.kwizera.springbootamalitechlab09taskmanager.controllers;
 
 import com.kwizera.springbootamalitechlab09taskmanager.Exceptions.InvalidInputException;
+import com.kwizera.springbootamalitechlab09taskmanager.Exceptions.ProjectNotFoundException;
 import com.kwizera.springbootamalitechlab09taskmanager.Exceptions.UserNotFoundException;
 import com.kwizera.springbootamalitechlab09taskmanager.domain.dto.ApiErrorResponse;
 import com.kwizera.springbootamalitechlab09taskmanager.utils.CustomLogger;
@@ -44,6 +45,16 @@ public class ErrorController {
 
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ApiErrorResponse> handleIllegalArgumentException(IllegalArgumentException ex) {
+        CustomLogger.log(CustomLogger.LogLevel.ERROR, ex.getMessage());
+        ApiErrorResponse error = ApiErrorResponse.builder()
+                .status(HttpStatus.BAD_REQUEST.value())
+                .message(ex.getMessage())
+                .build();
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ProjectNotFoundException.class)
+    public ResponseEntity<ApiErrorResponse> handleProjectNotFoundException(ProjectNotFoundException ex) {
         CustomLogger.log(CustomLogger.LogLevel.ERROR, ex.getMessage());
         ApiErrorResponse error = ApiErrorResponse.builder()
                 .status(HttpStatus.BAD_REQUEST.value())

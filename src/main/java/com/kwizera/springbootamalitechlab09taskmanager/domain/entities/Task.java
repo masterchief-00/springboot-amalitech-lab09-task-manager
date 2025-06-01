@@ -23,11 +23,11 @@ public class Task {
         this.taskStatus = taskStatus;
     }
 
-    public Task(Project project, String title, String description, TaskPriority taskPriority) {
-        this.project = project;
+    public Task(String title, String description, LocalDate dueDate, TaskPriority taskPriority) {
         this.title = title;
         this.description = description;
         this.taskPriority = taskPriority;
+        this.dueDate = dueDate;
         this.taskStatus = TaskStatus.PENDING;
     }
 
