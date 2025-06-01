@@ -92,4 +92,9 @@ public class TaskServicesImpl implements TaskServices {
 
         return taskDAO.update(taskId, field, newValue);
     }
+
+    @Override
+    public void deleteTask(UUID id) {
+        taskDAO.delete(id);
+    }
 }

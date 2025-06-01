@@ -15,4 +15,6 @@ public interface TaskServices {
     Task getTask(UUID taskId);
 
     Task updateTask(UUID taskId, String field, Object newValue) throws InvalidInputException;
+
+    void deleteTask(UUID id);
 }
