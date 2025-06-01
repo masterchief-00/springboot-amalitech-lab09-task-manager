@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/{user_email}/projects")
@@ -25,6 +26,12 @@ public class ProjectController {
     public ResponseEntity<List<Project>> getAllProjects(@PathVariable String user_email) {
         List<Project> projectList = projectServices.getProjects(user_email);
         return new ResponseEntity<>(projectList, HttpStatus.OK);
+    }
+
+    @GetMapping("/{project_id}")
+    public ResponseEntity<Project> getSingleProject(@PathVariable UUID project_id, @PathVariable String user_email) {
+        Project project = projectServices.getProject(project_id);
+        return new ResponseEntity<>(project, HttpStatus.OK);
     }
 
     @PostMapping
