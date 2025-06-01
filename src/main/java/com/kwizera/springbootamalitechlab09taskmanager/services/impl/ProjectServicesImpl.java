@@ -56,4 +56,9 @@ public class ProjectServicesImpl implements ProjectServices {
     public Project getProject(UUID id) {
         return projectDAO.findById(id);
     }
+
+    @Override
+    public Project updateProject(UUID id, String field, Object newValue) {
+        return projectDAO.update(id, field, newValue);
+    }
 }
