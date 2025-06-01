@@ -1,0 +1,34 @@
+package com.kwizera.springbootamalitechlab09taskmanager.controllers;
+
+import com.kwizera.springbootamalitechlab09taskmanager.Exceptions.InvalidInputException;
+import com.kwizera.springbootamalitechlab09taskmanager.Exceptions.UserNotFoundException;
+import com.kwizera.springbootamalitechlab09taskmanager.domain.dto.ProjectRequestDTO;
+import com.kwizera.springbootamalitechlab09taskmanager.domain.dto.ProjectResponseDTO;
+import com.kwizera.springbootamalitechlab09taskmanager.domain.entities.Project;
+import com.kwizera.springbootamalitechlab09taskmanager.services.ProjectServices;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/api/{user_email}/projects")
+public class ProjectController {
+    private final ProjectServices projectServices;
+
+    public ProjectController(ProjectServices projectServices) {
+        this.projectServices = projectServices;
+    }
+
+    @PostMapping
+    public ResponseEntity<ProjectResponseDTO> createNewProject(@PathVariable String user_email, @RequestBody ProjectRequestDTO projectInfo) throws UserNotFoundException, InvalidInputException {
+        Project project = projectServices.addProject(user_email, new Project(projectInfo.getTitle(), projectInfo.getDescription(), projectInfo.getDueDate()));
+        ProjectResponseDTO projectResponseDTO = new ProjectResponseDTO(
+                project.getTitle(),
+                project.getDescription(),
+                project.getDueDate(),
+                project.getEmployee().getLastName() + " " + project.getEmployee().getFirstName()
+        );
+
+        return new ResponseEntity<>(projectResponseDTO, HttpStatus.CREATED);
+    }
+}
