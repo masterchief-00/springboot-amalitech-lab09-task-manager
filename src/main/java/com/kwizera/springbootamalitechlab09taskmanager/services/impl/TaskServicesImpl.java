@@ -10,7 +10,9 @@ import com.kwizera.springbootamalitechlab09taskmanager.services.TaskServices;
 import com.kwizera.springbootamalitechlab09taskmanager.utils.InputValidationUtil;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
+
 @Service
 public class TaskServicesImpl implements TaskServices {
     private final TaskDAO taskDAO;
@@ -39,5 +41,15 @@ public class TaskServicesImpl implements TaskServices {
             task.setProject(project);
             return taskDAO.createTask(task);
         }
+    }
+
+    @Override
+    public List<Task> getTasks(UUID projectId) {
+        return taskDAO.findAll(projectId);
+    }
+
+    @Override
+    public Task getTask(UUID taskId) {
+        return taskDAO.findById(taskId);
     }
 }

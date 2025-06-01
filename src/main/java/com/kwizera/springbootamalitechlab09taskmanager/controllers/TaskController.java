@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -21,6 +22,19 @@ public class TaskController {
 
     public TaskController(TaskServices taskServices) {
         this.taskServices = taskServices;
+    }
+
+    @GetMapping("/{task_id}")
+    public ResponseEntity<Task> getTask(@PathVariable UUID task_id) {
+        Task task = taskServices.getTask(task_id);
+        return new ResponseEntity<>(task, HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Task>> getAllTasks(@PathVariable UUID project_id, @PathVariable String user_email) {
+        List<Task> taskList = taskServices.getTasks(project_id);
+
+        return new ResponseEntity<>(taskList, HttpStatus.OK);
     }
 
     @PostMapping

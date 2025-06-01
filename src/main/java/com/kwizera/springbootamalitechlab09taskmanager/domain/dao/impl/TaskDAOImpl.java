@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 @Repository
@@ -17,6 +18,11 @@ public class TaskDAOImpl implements TaskDAO {
     @Override
     public Task findById(UUID id) {
         return taskHashMap.get(id);
+    }
+
+    @Override
+    public List<Task> findAll(UUID projectId) {
+        return taskHashMap.values().stream().filter(t -> t.getProject().getId().equals(projectId)).toList();
     }
 
     @Override
