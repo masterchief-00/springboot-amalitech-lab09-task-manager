@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/{user_email}/projects")
 public class ProjectController {
@@ -17,6 +19,12 @@ public class ProjectController {
 
     public ProjectController(ProjectServices projectServices) {
         this.projectServices = projectServices;
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Project>> getAllProjects(@PathVariable String user_email) {
+        List<Project> projectList = projectServices.getProjects(user_email);
+        return new ResponseEntity<>(projectList, HttpStatus.OK);
     }
 
     @PostMapping
