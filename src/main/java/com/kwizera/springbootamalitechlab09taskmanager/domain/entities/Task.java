@@ -3,6 +3,7 @@ package com.kwizera.springbootamalitechlab09taskmanager.domain.entities;
 import com.kwizera.springbootamalitechlab09taskmanager.domain.enums.TaskPriority;
 import com.kwizera.springbootamalitechlab09taskmanager.domain.enums.TaskStatus;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 public class Task {
@@ -10,11 +11,11 @@ public class Task {
     private Project project;
     private String title;
     private String description;
+    private LocalDate dueDate;
     private TaskPriority taskPriority;
     private TaskStatus taskStatus;
 
-    public Task(UUID id, Project project, String title, String description, TaskPriority taskPriority, TaskStatus taskStatus) {
-        this.id = id;
+    public Task(Project project, String title, String description, TaskPriority taskPriority, TaskStatus taskStatus) {
         this.project = project;
         this.title = title;
         this.description = description;
@@ -22,8 +23,7 @@ public class Task {
         this.taskStatus = taskStatus;
     }
 
-    public Task(UUID id, Project project, String title, String description, TaskPriority taskPriority) {
-        this.id = id;
+    public Task(Project project, String title, String description, TaskPriority taskPriority) {
         this.project = project;
         this.title = title;
         this.description = description;
@@ -77,5 +77,13 @@ public class Task {
 
     public void setTaskStatus(TaskStatus taskStatus) {
         this.taskStatus = taskStatus;
+    }
+
+    public LocalDate getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(LocalDate dueDate) {
+        this.dueDate = dueDate;
     }
 }

@@ -1,6 +1,7 @@
 package com.kwizera.springbootamalitechlab09taskmanager.domain.entities;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 public class Project {
@@ -10,9 +11,10 @@ public class Project {
     private String description;
     private LocalDate dueDate;
     private LocalDate createdAt;
+    private LocalDate updatedAt;
+    private List<Task> tasks;
 
     public Project(UUID id, Employee employee, String title, String description, LocalDate dueDate, LocalDate createdAt) {
-        this.id = id;
         this.employee = employee;
         this.title = title;
         this.description = description;
@@ -66,5 +68,21 @@ public class Project {
 
     public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    public LocalDate getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDate updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }
