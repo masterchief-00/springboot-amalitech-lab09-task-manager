@@ -10,6 +10,10 @@ import com.kwizera.springbootamalitechlab09taskmanager.services.ProjectServices;
 import com.kwizera.springbootamalitechlab09taskmanager.utils.InputValidationUtil;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.UUID;
+
 
 @Service
 public class ProjectServicesImpl implements ProjectServices {
@@ -41,5 +45,15 @@ public class ProjectServicesImpl implements ProjectServices {
 
             return projectDAO.createProject(project);
         }
+    }
+
+    @Override
+    public List<Project> getProjects(String userEmail) {
+        return projectDAO.findAll(userEmail);
+    }
+
+    @Override
+    public Project getProject(UUID id) {
+        return projectDAO.findById(id);
     }
 }

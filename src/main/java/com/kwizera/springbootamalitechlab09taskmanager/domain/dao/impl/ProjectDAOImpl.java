@@ -5,8 +5,11 @@ import com.kwizera.springbootamalitechlab09taskmanager.domain.entities.Project;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Repository
 public class ProjectDAOImpl implements ProjectDAO {
@@ -15,6 +18,11 @@ public class ProjectDAOImpl implements ProjectDAO {
     @Override
     public Project findById(UUID id) {
         return projectHashMap.get(id);
+    }
+
+    @Override
+    public List<Project> findAll(String email) {
+        return projectHashMap.values().stream().filter(p -> p.getEmployee().getEmail().equals(email)).toList();
     }
 
     @Override
