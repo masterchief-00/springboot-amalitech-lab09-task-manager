@@ -15,5 +15,5 @@ public interface ProjectServices {
 
     Project getProject(UUID id);
 
-    Project updateProject(UUID id, String field, Object newValue);
+    Project updateProject(UUID id, String field, Object newValue) throws InvalidInputException;
 }

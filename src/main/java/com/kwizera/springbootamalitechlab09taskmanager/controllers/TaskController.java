@@ -4,11 +4,11 @@ import com.kwizera.springbootamalitechlab09taskmanager.Exceptions.InvalidInputEx
 import com.kwizera.springbootamalitechlab09taskmanager.Exceptions.ProjectNotFoundException;
 import com.kwizera.springbootamalitechlab09taskmanager.domain.dto.TaskRequestDTO;
 import com.kwizera.springbootamalitechlab09taskmanager.domain.dto.TaskResponseDTO;
+import com.kwizera.springbootamalitechlab09taskmanager.domain.dto.TaskUpdateRequestDTO;
 import com.kwizera.springbootamalitechlab09taskmanager.domain.entities.Task;
 import com.kwizera.springbootamalitechlab09taskmanager.domain.enums.TaskPriority;
 import com.kwizera.springbootamalitechlab09taskmanager.services.TaskServices;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -53,5 +53,14 @@ public class TaskController {
         TaskResponseDTO taskResponseDTO = new TaskResponseDTO(task.getTitle(), task.getDescription(), task.getDueDate(), task.getTaskPriority(), task.getProject().getTitle());
 
         return new ResponseEntity<>(taskResponseDTO, HttpStatus.CREATED);
+    }
+
+    @PatchMapping("/{task_id}")
+    public ResponseEntity<TaskResponseDTO> updateTask(@PathVariable UUID task_id, @RequestBody TaskUpdateRequestDTO updateDetails) throws InvalidInputException {
+        Task task = taskServices.updateTask(task_id, updateDetails.getField(), updateDetails.getNewValue());
+        if (task == null) throw new RuntimeException("Task not updated");
+
+        TaskResponseDTO taskResponseDTO = new TaskResponseDTO(task.getTitle(), task.getDescription(), task.getDueDate(), task.getTaskPriority(), task.getProject().getTitle());
+        return new ResponseEntity<>(taskResponseDTO, HttpStatus.OK);
     }
 }

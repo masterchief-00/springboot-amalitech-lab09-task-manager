@@ -48,8 +48,8 @@ public class ProjectController {
         return new ResponseEntity<>(projectResponseDTO, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{project_id}")
-    public ResponseEntity<ProjectResponseDTO> updateProject(@PathVariable UUID project_id, @RequestBody ProjectUpdateRequestDTO updateDetails) {
+    @PatchMapping("/{project_id}")
+    public ResponseEntity<ProjectResponseDTO> updateProject(@PathVariable UUID project_id, @RequestBody ProjectUpdateRequestDTO updateDetails) throws InvalidInputException {
         Project project = projectServices.updateProject(project_id, updateDetails.getField(), updateDetails.getNewValue());
         if (project == null)
             throw new RuntimeException("Project not updated");
