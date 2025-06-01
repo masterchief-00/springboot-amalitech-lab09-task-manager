@@ -1,5 +1,6 @@
 package com.kwizera.springbootamalitechlab09taskmanager.domain.entities;
 
+import java.util.List;
 import java.util.UUID;
 
 public class Employee {
@@ -7,9 +8,9 @@ public class Employee {
     private String firstName;
     private String lastName;
     private String email;
+    private List<Project> projects;
 
-    public Employee(UUID id, String firstName, String lastName, String email) {
-        this.id = id;
+    public Employee(String firstName, String lastName, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -45,5 +46,13 @@ public class Employee {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(List<Project> projects) {
+        this.projects = projects;
     }
 }
