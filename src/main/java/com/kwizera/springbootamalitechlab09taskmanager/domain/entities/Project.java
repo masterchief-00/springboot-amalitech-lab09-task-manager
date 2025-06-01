@@ -14,12 +14,19 @@ public class Project {
     private LocalDate updatedAt;
     private List<Task> tasks;
 
-    public Project(UUID id, Employee employee, String title, String description, LocalDate dueDate, LocalDate createdAt) {
+    public Project(Employee employee, String title, String description, LocalDate dueDate, LocalDate createdAt) {
         this.employee = employee;
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
         this.createdAt = createdAt;
+    }
+
+    public Project(String title, String description, LocalDate dueDate) {
+        this.title = title;
+        this.description = description;
+        this.dueDate = dueDate;
+        this.createdAt = LocalDate.now();
     }
 
     public UUID getId() {

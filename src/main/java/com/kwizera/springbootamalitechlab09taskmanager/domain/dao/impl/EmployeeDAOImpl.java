@@ -18,12 +18,16 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
     @Override
     public Employee findByEmail(String email) {
-        return employeeHashMap
-                .values()
-                .stream()
-                .filter(e -> e.getEmail().toLowerCase().equals(email))
-                .toList()
-                .get(0);
+        try {
+            return employeeHashMap
+                    .values()
+                    .stream()
+                    .filter(e -> e.getEmail().toLowerCase().equals(email))
+                    .toList()
+                    .get(0);
+        } catch (IndexOutOfBoundsException ex) {
+            return null;
+        }
     }
 
     @Override
