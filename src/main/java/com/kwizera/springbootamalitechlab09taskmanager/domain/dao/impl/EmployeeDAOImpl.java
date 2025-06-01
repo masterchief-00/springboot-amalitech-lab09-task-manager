@@ -27,7 +27,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     }
 
     @Override
-    public Employee createTask(Employee employee) {
+    public Employee register(Employee employee) {
         UUID employeeId = UUID.randomUUID();
         employee.setId(employeeId);
         employeeHashMap.put(employeeId, employee);

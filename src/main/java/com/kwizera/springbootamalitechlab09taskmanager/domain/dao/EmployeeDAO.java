@@ -9,7 +9,7 @@ public interface EmployeeDAO {
 
     Employee findByEmail(String email);
 
-    Employee createTask(Employee employee);
+    Employee register(Employee employee);
 
     void delete(UUID id);
 }
