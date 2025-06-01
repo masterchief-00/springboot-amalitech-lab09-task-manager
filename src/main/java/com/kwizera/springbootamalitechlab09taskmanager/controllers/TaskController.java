@@ -63,4 +63,10 @@ public class TaskController {
         TaskResponseDTO taskResponseDTO = new TaskResponseDTO(task.getTitle(), task.getDescription(), task.getDueDate(), task.getTaskPriority(), task.getProject().getTitle());
         return new ResponseEntity<>(taskResponseDTO, HttpStatus.OK);
     }
+
+    @DeleteMapping("/{task_id}")
+    public ResponseEntity<Void> deleteTask(@PathVariable UUID task_id) {
+        taskServices.deleteTask(task_id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

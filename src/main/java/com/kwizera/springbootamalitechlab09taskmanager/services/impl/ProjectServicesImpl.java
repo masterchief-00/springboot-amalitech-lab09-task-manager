@@ -79,4 +79,9 @@ public class ProjectServicesImpl implements ProjectServices {
 
         return projectDAO.update(id, field, newValue);
     }
+
+    @Override
+    public void deleteProject(UUID id) {
+        projectDAO.delete(id);
+    }
 }
