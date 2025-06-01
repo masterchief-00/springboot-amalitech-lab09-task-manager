@@ -56,4 +56,27 @@ public class ProjectServicesImpl implements ProjectServices {
     public Project getProject(UUID id) {
         return projectDAO.findById(id);
     }
+
+    @Override
+    public Project updateProject(UUID id, String field, Object newValue) throws InvalidInputException {
+        switch (field) {
+            case "title" -> {
+                if (InputValidationUtil.invalidProjectTitle((String) newValue))
+                    throw new InvalidInputException("Invalid title");
+            }
+            case "description" -> {
+                if (InputValidationUtil.invalidProjectDescription((String) newValue))
+                    throw new InvalidInputException("Invalid description");
+            }
+            case "dueDate" -> {
+                if (InputValidationUtil.invalidLocalDate((String) newValue))
+                    throw new InvalidInputException("Invalid date");
+            }
+            default -> {
+                throw new InvalidInputException("Invalid inputs");
+            }
+        }
+
+        return projectDAO.update(id, field, newValue);
+    }
 }

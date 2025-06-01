@@ -4,6 +4,7 @@ import com.kwizera.springbootamalitechlab09taskmanager.Exceptions.InvalidInputEx
 import com.kwizera.springbootamalitechlab09taskmanager.Exceptions.UserNotFoundException;
 import com.kwizera.springbootamalitechlab09taskmanager.domain.dto.ProjectRequestDTO;
 import com.kwizera.springbootamalitechlab09taskmanager.domain.dto.ProjectResponseDTO;
+import com.kwizera.springbootamalitechlab09taskmanager.domain.dto.ProjectUpdateRequestDTO;
 import com.kwizera.springbootamalitechlab09taskmanager.domain.entities.Project;
 import com.kwizera.springbootamalitechlab09taskmanager.services.ProjectServices;
 import org.springframework.http.HttpStatus;
@@ -46,4 +47,14 @@ public class ProjectController {
 
         return new ResponseEntity<>(projectResponseDTO, HttpStatus.CREATED);
     }
+
+    @PatchMapping("/{project_id}")
+    public ResponseEntity<ProjectResponseDTO> updateProject(@PathVariable UUID project_id, @RequestBody ProjectUpdateRequestDTO updateDetails) throws InvalidInputException {
+        Project project = projectServices.updateProject(project_id, updateDetails.getField(), updateDetails.getNewValue());
+        if (project == null)
+            throw new RuntimeException("Project not updated");
+        ProjectResponseDTO projectResponseDTO = new ProjectResponseDTO(project.getTitle(), project.getDescription(), project.getDueDate(), project.getEmployee().getLastName() + " " + project.getEmployee().getFirstName());
+        return new ResponseEntity<>(projectResponseDTO, HttpStatus.OK);
+    }
+
 }
